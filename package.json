@@ -1,0 +1,22 @@
+{
+  "name": "shogun",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon --exec babel-node ./index.js",
+    "test": "jest"
+  },
+  "repository": "git@github.com:stamtech/shogun.git",
+  "author": "Sofiane Stamboul <sofiane_stamboul.external@discovery.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.3.0",
+    "babel-node": "^0.0.1-security",
+    "jest": "^25.3.0",
+    "nodemon": "^2.0.3"
+  }
+}
