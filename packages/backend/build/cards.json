@@ -1,0 +1,28 @@
+{
+  "Cards": [
+    { "id": 1, "type": "Role", "name": "Shogun" },
+    { "id": 2, "type": "Role", "name": "Samourai" },
+    { "id": 3, "type": "Role", "name": "Samourai" },
+    { "id": 4, "type": "Role", "name": "Ninja" },
+    { "id": 5, "type": "Role", "name": "Ninja" },
+    { "id": 6, "type": "Role", "name": "Ninja" },
+    { "id": 7, "type": "Role", "name": "Ronin" },
+    {
+      "id": 8,
+      "type": "Character",
+      "name": "Hanzo",
+      "lifePoint": 4
+    },
+    { "id": 9, "type": "Character", "name": "Tomoe", "lifePoint": 5 },
+    { "id": 10, "type": "Character", "name": "Musashi", "lifePoint": 5 },
+    { "id": 11, "type": "Character", "name": "Hideyoshi", "lifePoint": 4 },
+    { "id": 12, "type": "Character", "name": "Kojiro", "lifePoint": 5 },
+    { "id": 13, "type": "Character", "name": "Chiyome", "lifePoint": 4 },
+    { "id": 14, "type": "Character", "name": "Goemon", "lifePoint": 5 },
+    { "id": 15, "type": "Character", "name": "Benkei", "lifePoint": 5 },
+    { "id": 16, "type": "Character", "name": "Ushiwaka", "lifePoint": 4 },
+    { "id": 17, "type": "Character", "name": "Nobunaga", "lifePoint": 5 },
+    { "id": 18, "type": "Character", "name": "Ginchiyo", "lifePoint": 4 },
+    { "id": 19, "type": "Character", "name": "Ieyasu", "lifePoint": 5 }
+  ]
+}
