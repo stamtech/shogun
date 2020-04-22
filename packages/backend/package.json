@@ -8,13 +8,17 @@
     "build": "babel -d ./build . --copy-files",
     "prebuild": "rm -rf build/*",
     "start": "node ./build/index.js",
-    "prestart": "yarn build"
+    "prestart": "yarn build",
+    "deploy": "serverless deploy"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "serverless": "^1.68.0",
+    "serverless-bundle": "^1.4.0",
+    "serverless-webpack": "^5.3.1"
   }
 }
