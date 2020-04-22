@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "back": "yarn workspace backend start",
+    "back:deploy": "yarn workspace backend deploy",
     "front": "yarn workspace frontend start",
     "watch": "nodemon --exec babel-node ./index.js",
     "test": "jest"
