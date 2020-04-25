@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import { FormControl, Image, Flex, Button, Input, Box } from "@chakra-ui/core";
-import { Text } from "@chakra-ui/core";
+import { Text, FormControl, Image, Flex, Button, Input, Box, useToast } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
 import Samurai from "../img/samurai.jpg";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 const Home = () => {
-  const name = localStorage.getItem("name");
+  const name = localStorage.getItem("shogun-name");
   const { register, handleSubmit, errors } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const history = useHistory();
 
-  const onSubmit = ({ name }) => {
+  const onSubmit = async ({ name }) => {
     setIsSubmitting(true);
-    setTimeout(() => {
-      console.log(name);
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}create-game`, { name }).catch(error => {
       setIsSubmitting(false);
-      localStorage.setItem("name", name);
-      history.push("/lobby/22");
-    }, 1000);
+      console.error("Something bad happend", { error, env: process.env });
+      throw error;
+    });
+
+    setIsSubmitting(false);
+    localStorage.setItem("shogun-name", name);
+    history.push(`/lobby/${response.data.id}`);
   };
   return (
     <div>

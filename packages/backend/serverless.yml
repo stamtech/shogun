@@ -21,19 +21,20 @@ provider:
       Resource: !GetAtt ShogunTable.Arn
 
 functions:
-  cardDivision: # Function name
-    handler: ./cardDivision/index.default
+  createGame: # Function name
+    handler: ./writer/createGame.default
     events: # All events associated with this function
       - http:
-          path: cardDivision/get-cards
-          method: get
+          path: create-game
+          method: post
+          cors: true
 
 resources:
   Resources:
     ShogunTable:
       Type: "AWS::DynamoDB::Table"
       Properties:
-        TableName: game
+        TableName: games
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S

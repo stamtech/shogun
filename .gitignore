@@ -106,3 +106,5 @@ dist
 packages/frontend/node_modules
 
 packages/backend/node_modules
+
+.env
