@@ -27,7 +27,6 @@ export default Lobby => {
     };
     fetchGameDetails(id);
   });
-  const arrayOfPlayers = [...Array(6).keys()];
 
   return (
     <Box>
@@ -44,11 +43,7 @@ export default Lobby => {
           Lancer la partie !
         </Button>
       </Flex>
-      {arrayOfPlayers.map(playerNumber => (
-        <Text textAlign='center' fontSize='l'>
-          sofiane à rejoins la partie !
-        </Text>
-      ))}
+
       <AddPlayerModal></AddPlayerModal>
     </Box>
   );
