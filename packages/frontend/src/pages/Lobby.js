@@ -15,10 +15,18 @@ import {
   ModalHeader,
   ModalContent,
 } from "@chakra-ui/core";
+import { getGameDetails } from "../service";
 import Samurai from "../img/zen.jpg";
 
 export default Lobby => {
   const { id } = useParams();
+  useEffect(() => {
+    const fetchGameDetails = async id => {
+      const response = await getGameDetails(id);
+      console.log(response.data);
+    };
+    fetchGameDetails(id);
+  });
   const arrayOfPlayers = [...Array(6).keys()];
 
   return (

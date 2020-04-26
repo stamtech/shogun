@@ -28,6 +28,13 @@ functions:
           path: create-game
           method: post
           cors: true
+  getGame: # Function name
+    handler: ./reader/getGame.default
+    events: # All events associated with this function
+      - http:
+          path: get-game/{id}
+          method: get
+          cors: true
 
 resources:
   Resources:
