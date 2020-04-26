@@ -28,6 +28,14 @@ functions:
           path: create-game
           method: post
           cors: true
+  addPlayer: # Function name
+    handler: ./writer/addPlayer.default
+    events: # All events associated with this function
+      - http:
+          path: add-player
+          method: post
+          cors: true
+
   getGame: # Function name
     handler: ./reader/getGame.default
     events: # All events associated with this function

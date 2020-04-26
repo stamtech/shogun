@@ -1,23 +1,28 @@
 import AWS from "aws-sdk";
 
 const client = new AWS.DynamoDB.DocumentClient();
-const uuid = require("uuid/v4");
+import { v4 as uuid } from "uuid";
 
 export default async event => {
-  const { name } = JSON.parse(event.body);
+  const { player } = JSON.parse(event.body);
 
-  if (!name) {
-    console.info({ event });
-    throw Error("name not found");
+  if (!player) {
+    return {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      statusCode: 404,
+      body: JSON.stringify({ message: "Player not found" }),
+    };
   }
   const id = uuid();
   const params = {
     TableName: "games",
     Item: {
       id,
-      gameOwner: name,
-      players: [name],
-      open: true,
+      gameOwner: player,
+      players: [player],
+      status: "created",
     },
   };
 
@@ -32,6 +37,12 @@ export default async event => {
     };
   } catch (error) {
     console.log(error);
-    return { statusCode: 500, body: JSON.stringify(error) };
+    return {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      statusCode: 500,
+      body: JSON.stringify(error),
+    };
   }
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Flex,
@@ -20,10 +20,11 @@ import Samurai from "../img/zen.jpg";
 
 export default Lobby => {
   const { id } = useParams();
+  const [player, setPlayer] = useState({ name: "", id: "" });
   useEffect(() => {
     const fetchGameDetails = async id => {
       const response = await getGameDetails(id);
-      console.log(response.data);
+      setPlayer(response.data.gameOwner);
     };
     fetchGameDetails(id);
   });
@@ -36,7 +37,7 @@ export default Lobby => {
         </Box>
       </Flex>
       <Text textAlign='center' fontSize='4xl'>
-        Toto t'as invité à rejoindre la partie
+        {player.name} t'as invité à rejoindre la partie
       </Text>
       <Flex align='center' justify='center' marginBottom='10'>
         <Button size='lg' variantColor='teal'>
