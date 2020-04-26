@@ -3,7 +3,7 @@ import { Text, FormControl, Image, Flex, Button, Input, Box, useToast } from "@c
 import { useForm } from "react-hook-form";
 import Samurai from "../img/samurai.jpg";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { createGame } from "../service";
 const Home = () => {
   const name = localStorage.getItem("shogun-name");
   const { register, handleSubmit, errors } = useForm();
@@ -12,7 +12,7 @@ const Home = () => {
 
   const onSubmit = async ({ name }) => {
     setIsSubmitting(true);
-    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}create-game`, { name }).catch(error => {
+    const response = await createGame(name).catch(error => {
       setIsSubmitting(false);
       console.error("Something bad happend", { error, env: process.env });
       throw error;

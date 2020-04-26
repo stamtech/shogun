@@ -1,4 +1,4 @@
-import { Cards as cards } from "../cards.json";
+import { Cards as cards } from "../../cards.json";
 
 export const roleCardDivision = numberOfPlayers => {
   switch (numberOfPlayers) {
