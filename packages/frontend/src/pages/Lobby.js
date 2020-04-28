@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { v4 as uuid } from "uuid/v4";
 import {
   Flex,
   Text,
@@ -14,21 +16,22 @@ import {
   ModalCloseButton,
   ModalHeader,
   ModalContent,
+  Input,
 } from "@chakra-ui/core";
-import { getGameDetails } from "../service";
+import { getGameDetails, addPlayer } from "../service";
 import Samurai from "../img/zen.jpg";
 
 export default Lobby => {
   const { id } = useParams();
-  const [player, setPlayer] = useState({ name: "", id: "" });
+  const [gameOwner, setGameOwner] = useState({ name: "", id: "" });
+  const [players, setPlayers] = useState([]);
   useEffect(() => {
-    const fetchGameDetails = async id => {
-      const response = await getGameDetails(id);
-      setPlayer(response.data.gameOwner);
-    };
-    fetchGameDetails(id);
-  });
-
+    getGameDetails(id).then(response => {
+      setGameOwner(response.data.gameOwner);
+      setPlayers(response.data.players);
+    });
+  }, [id]);
+  const currentPlayer = JSON.parse(localStorage.getItem("shogun-player"));
   return (
     <Box>
       <Flex align='center' justify='center'>
@@ -37,37 +40,55 @@ export default Lobby => {
         </Box>
       </Flex>
       <Text textAlign='center' fontSize='4xl'>
-        {player.name} t'as invité à rejoindre la partie
+        {gameOwner.name} t'as invité à rejoindre la partie
       </Text>
+      {players.map(player => (
+        <Text key={player.id} textAlign='center' fontSize='4xl'>
+          {player.name} à rejoint la partie
+        </Text>
+      ))}
       <Flex align='center' justify='center' marginBottom='10'>
         <Button size='lg' variantColor='teal'>
           Lancer la partie !
         </Button>
       </Flex>
-
-      <AddPlayerModal></AddPlayerModal>
+      {}
+      {gameOwner.name && (
+        <AddPlayerModal name={gameOwner.name} defaultOpen={shouldDisplayModal(currentPlayer, gameOwner)} />
+      )}
     </Box>
   );
 };
 
-function AddPlayerModal({ defaultOpen = false }) {
-  const { isOpen, onOpen, onClose } = useDisclosure(defaultOpen);
+const shouldDisplayModal = (currentPlayer, gameOwner) => !currentPlayer || currentPlayer.id !== gameOwner.id;
+function AddPlayerModal({ defaultOpen = false, name }) {
+  const { isOpen, onClose } = useDisclosure(defaultOpen);
+  const { handleSubmit, register } = useForm();
+  const { id } = useParams();
+
+  const onSubmit = async ({ currentPlayerName }) => {
+    const currentPlayerId = uuid();
+    const player = { id: currentPlayerId, name: currentPlayerName };
+    await addPlayer(id, player);
+    localStorage.setItem("shogun-name", JSON.stringify({ id: currentPlayerId, name: currentPlayerName }));
+  };
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody></ModalBody>
-
-          <ModalFooter>
-            <Flex align='center' justifyContent='center'>
-              <Button variantColor='green'>Joindre la partie</Button>
-            </Flex>
-          </ModalFooter>
+          <ModalHeader>{name} à créer une </ModalHeader>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input name='currentPlayerName' isRequired placeholder="C'est quoi ton petit nom ? " ref={register} />
+            <ModalBody></ModalBody>
+            <ModalFooter>
+              <Flex align='center' justifyContent='center'>
+                <Button variantColor='green' type='onSubmit'>
+                  Joindre la partie
+                </Button>
+              </Flex>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>

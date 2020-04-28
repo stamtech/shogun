@@ -7,7 +7,7 @@ import { createGame } from "../service";
 import { v4 as uuidv4 } from "uuid";
 
 const Home = () => {
-  const player = JSON.parse(localStorage.getItem("shogun-player"));
+  const player = JSON.parse(localStorage.getItem("shogun-player")) || {};
 
   const { register, handleSubmit, errors } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
