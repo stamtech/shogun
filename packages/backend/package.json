@@ -22,7 +22,7 @@
     "serverless-webpack": "^5.3.1"
   },
   "dependencies": {
-    "aws-sdk": "^2.663.0",
+    "aws-sdk": "^2.814.0",
     "uuid": "^7.0.3"
   }
 }
